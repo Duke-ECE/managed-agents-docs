@@ -17,7 +17,7 @@ internet
 
 - **Frontend** — React (Vite), served by nginx.
   Repo: [Duke-ECE/managed-agents-frontend](https://github.com/Duke-ECE/managed-agents-frontend)
-- **Backend** — Express API (`/api/health`, `/api/message`), CORS-restricted to the frontend origin.
+- **Backend** — Go/Gin API proxying to the agent services, CORS-restricted to the frontend origin.
   Repo: [Duke-ECE/managed-agents-backend](https://github.com/Duke-ECE/managed-agents-backend)
 - **Skills** — agent skill definitions for operating the cluster (VM connection, SSH key onboarding).
   Repo: [Duke-ECE/teamSkills](https://github.com/Duke-ECE/teamSkills) (created and maintained by Weihao)

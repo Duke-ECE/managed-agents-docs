@@ -7,10 +7,12 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Standards', link: '/standards' },
       { text: 'Changelog', link: '/changelog' },
     ],
     sidebar: [
       { text: 'Project Overview', link: '/' },
+      { text: 'Engineering Standards', link: '/standards' },
       { text: 'Changelog', link: '/changelog' },
     ],
     socialLinks: [
