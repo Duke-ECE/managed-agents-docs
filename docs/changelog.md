@@ -2,6 +2,46 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-07-26 — Platform build-out: auth, durable sessions, standards
+
+### Auth & accounts
+
+- Supabase project `managed_agents` wired in: JWT auth (JWKS) on all
+  `/api/sessions*` routes; `sub` becomes `user_id` end-to-end. Frontend
+  login gate with email/password sign-in. Admin account provisioned.
+
+### Chat product
+
+- agent-runtime (TypeScript, pi agent core) serves `runtime.v1.AgentService`
+  with SSE-bridged chat; the AgentDeck frontend's chat page is live —
+  all other console pages remain mock.
+- **Default LLM provider**: OpenRouter (`openai/gpt-oss-20b:free`) stored
+  in Supabase `llm_providers` (RLS-locked), injected server-side by the
+  backend when the user brings no key. Frontend Default/Custom provider
+  toggle.
+
+### Durable sessions
+
+- New **session-manager** service (Go, :50053): owns `agent_sessions` /
+  `agent_messages` via PostgREST; ownership enforced on every RPC;
+  runtime write-through (`AppendTurn`) with a shared service token.
+  Backend session lifecycle routed through it; new transcript endpoint
+  `GET /api/sessions/:id/messages`. E2E verified (cross-user 403,
+  token-less AppendTurn rejected).
+- protos **v0.4.0**: `session.v1.SessionService` + adoptable `session_id`
+  in `runtime.v1`.
+
+### Platform hygiene
+
+- [Duke-ECE/standards](https://github.com/Duke-ECE/standards) created:
+  engineering rules + canonical Go service template; pointer `AGENTS.md`
+  added to all Go repos.
+- Docs site reorganized: architecture, per-service pages, contracts,
+  deployment, operations runbook (this release).
+- Backend rewritten from Express to Go/Gin earlier in the cycle;
+  sandbox-manager + pooled single-use sandboxes landed (tool wiring into
+  the runtime is the next milestone).
+
 ## 2026-07-21 — Initial platform bring-up
 
 ### Team skills (repo created by Weihao)
