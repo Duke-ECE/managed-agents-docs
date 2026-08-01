@@ -7,30 +7,38 @@ the human-readable version.
 
 ## Go project layout
 
-All Go services follow one layout (copy `templates/go-service/` from the
-standards repo when starting something new):
+**Vertical slices inside a hexagonal core.** All Go services follow one
+layout (copy `templates/go-service/` from the standards repo when
+starting something new):
 
 ```
-cmd/server/main.go        # env parsing, wiring, graceful shutdown ONLY — no logic
-internal/server/server.go # server construction: grpc.Server/http.Server, timeouts
-internal/server/routes.go # HTTP services: the endpoint table (RegisterRoutes)
-internal/<domain>/        # business logic + RPC handlers, one package per domain
-internal/store/           # persistence behind an interface (delete if stateless)
-supabase/migrations/      # schema, timestamped versions
-k8s.yaml                  # Deployment + Service; env from Secrets via secretKeyRef
-Dockerfile                # golang:1.25-alpine → alpine:3.21, non-root uid 10001
-Makefile                  # build / vet / test / run — thin wrappers, no magic
+cmd/server/main.go            # the ONLY assembly point (composition root)
+internal/
+  transport/
+    grpc|http/                # server construction, thin handlers, single
+                              # error→status mapper; HTTP: routes.go + middleware.go
+  <slice>/                    # one package per aggregate: types, service.go
+                              # (rules), store.go (the port — owned by the
+                              # slice), errors.go (domain errors)
+  infrastructure/
+    postgrest/                # port implementations over Supabase PostgREST
+    memory/                   # in-memory implementations — REQUIRED
+  config/                     # env vars with defaults
 ```
 
 Key rules:
 
-- `cmd/server`, not `cmd/api`; handlers never live in `main`.
-- Explicit server construction (`NewServer()`), never bare
-  `http.ListenAndServe`; graceful shutdown on SIGINT/SIGTERM everywhere.
-- **SSE-aware timeouts**: `ReadHeaderTimeout` yes; blanket `WriteTimeout`
-  never (it kills long-lived SSE/gRPC streams).
-- `/health` reports dependency status; a sick dependency is a 200 with
-  detail, never `log.Fatal`.
+- Dependencies point inward: transport → slices ← infrastructure.
+  Ports are declared in the slice that consumes them.
+- Handlers do zero business logic; domain errors map to statuses in
+  exactly one file per transport.
+- Explicit server construction, graceful shutdown, SSE-aware timeouts
+  (`ReadHeaderTimeout` yes; blanket `WriteTimeout` never).
+- Every port has a memory implementation (zero-dep local runs; the
+  parity reference: same IDs, ordering, errors across backends).
+- No orphans: every package is wired into the running binary. Slices sit
+  flat under `internal/` until there are more than five, then group
+  under `internal/domain/`.
 
 ## Testing and gates
 
