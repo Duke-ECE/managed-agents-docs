@@ -12,10 +12,12 @@ data. Storage is Supabase Postgres via PostgREST with a service key.
 | `GetSession` | owner only → else `PERMISSION_DENIED` |
 | `ListSessions` | returns only the caller's sessions |
 | `EndSession` | owner only; marks `ended` (idempotent) |
-| `AppendTurn` | **service token only** (`x-service-token`); trusted runtime callers |
+| `AppendTurn` | **service token only** (`x-service-token`); trusted runtime callers; appends to `ended` sessions rejected with `FAILED_PRECONDITION` (ended is terminal — transcripts stay readable) |
 | `GetTranscript` | owner reads freely; authenticated non-owner → `PERMISSION_DENIED`; no user identity → service token (runtime hydration path) |
 
-An unset `SERVICE_TOKEN` fails the token-gated paths closed.
+An unset `SERVICE_TOKEN` fails the token-gated paths closed. Domain
+errors gained `KindFailedPrecondition`, mapped to
+`codes.FailedPrecondition`.
 
 ## Tables
 

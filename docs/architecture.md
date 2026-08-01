@@ -54,6 +54,10 @@ The backend verifies it against the Supabase JWKS endpoint; the JWT
    session-manager `AppendTurn` (service token) with the user message,
    the aggregated assistant text, and any tool events. Errored or
    aborted turns are not persisted.
+5. If the runtime answers `NOT_FOUND` before any SSE frame (live session
+   lost to restart/TTL), the backend re-creates the session under the
+   same id — hydrated from the transcript — and retries the turn once.
+   `ended` sessions refuse with 410; mid-stream `NOT_FOUND` is fatal.
 
 ### Read history
 
@@ -83,8 +87,11 @@ collide silently.
 
 ## Runtime state vs durable state
 
-Live agents are in-memory inside agent-runtime (cap 20, 30-minute idle
-TTL, single replica). The durable record (session + transcript) always
-survives in Postgres; making the runtime **rehydrate** a live agent
-from the transcript after a restart or eviction is the next milestone
-(see Changelog / roadmap).
+Runtime memory is a **hydratable cache**, not the source of truth. Live
+agents sit in agent-runtime memory (cap 20, 30-minute idle TTL, single
+replica); durable session records and transcripts live in Supabase
+Postgres via session-manager. When a live session is lost (runtime
+restart, TTL eviction), the next turn resumes it: the backend re-creates
+the runtime session under the same id and the runtime **hydrates** the
+agent from the durable transcript — sessions survive restarts and
+eviction (see Changelog 2026-08-01).

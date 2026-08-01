@@ -26,6 +26,18 @@ gRPC→HTTP error mapping: `NOT_FOUND→404`, `PERMISSION_DENIED→403`,
 A session-manager failure during creation is a 502 — never a silent
 fallback to untracked sessions.
 
+## Resume-on-404
+
+When the runtime's `Chat` answers `NOT_FOUND` before any SSE frame (the
+live session was lost to a runtime restart or TTL eviction), the backend
+resumes instead of failing: it verifies ownership via session-manager
+`GetSession`, refuses with 410 if the record is `ended` (ended is
+terminal), re-creates the runtime session under the same id
+(`ALREADY_EXISTS` from a concurrent resume is tolerated) — the runtime
+hydrates from the durable transcript — and retries the turn once. A
+mid-stream `NOT_FOUND` stays fatal. Domain errors gained
+`KindFailedPrecondition`, mapped to HTTP 410.
+
 ## Default LLM provider
 
 `internal/provider` reads the `is_default` row from the Supabase

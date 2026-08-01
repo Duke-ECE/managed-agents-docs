@@ -31,6 +31,23 @@ kubectl get deploy <name> -o jsonpath='{.spec.template.spec.containers[0].image}
 # image tag must equal the pushed commit sha
 ```
 
+## Live smoke test
+
+`test/live-smoke.sh` (managed-agents-backend) is an env-driven
+end-to-end check that works against any environment, production
+included: create a session → plant a code word → (optionally) restart
+the runtime → recall the word (proves transcript hydration) → check
+transcript depth → end the session → verify further turns are refused.
+
+```sh
+SUPABASE_URL=… SUPABASE_ANON_KEY=… TEST_EMAIL=… TEST_PASSWORD=… \
+  ./test/live-smoke.sh
+# RESTART_RUNTIME=1 additionally does a kubectl rollout restart of
+# agent-runtime between plant and recall
+```
+
+Verified green against production on 2026-08-01.
+
 ## Common incidents
 
 **Intermittent 401s after a backend rollout.**
