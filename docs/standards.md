@@ -35,8 +35,10 @@ internal/
 
 ## The rules in one breath
 
-stdlib-only testing (bufconn/httptest fakes) · `gofmt`/`vet`/`test` +
-`./scripts/check.sh` gates · go directive pinned to the 1.25 line,
+stdlib-only testing (bufconn/httptest fakes; unit tests next to code,
+whole-service integration tests in top-level `test/` over real TCP) ·
+`gofmt`/`vet`/`test` + `./scripts/check.sh` gates · go directive pinned to
+the 1.25 line,
 `GOTOOLCHAIN=local` · PostgREST-with-service-key is the only database
 pattern · tables RLS-locked with no policies · timestamped migration
 versions · no secrets in git (k8s Secrets + `secretKeyRef`) · standard
