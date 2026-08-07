@@ -6,15 +6,16 @@ deep-link restore (the intended path survives the OAuth round-trip).
 
 ## Routes
 
-`/login` is public; everything else sits behind an auth guard:
-Dashboard, Sandboxes, Agents, Sessions, Tasks, Orchestrations, Chat,
-LLM Access (`/admin`).
+`/login` is public; everything else sits behind an auth guard: Chat
+(`/chat`, `/chat/:id`), Sessions (`/sessions`), LLM Access (`/admin`).
+`/` redirects to `/chat`.
 
-**Only the Chat, Sessions and LLM Access pages talk to the real backend.**
-All other pages read mock data (`src/mocks/`, simulated 350 ms delay) —
-migrating them to real endpoints is planned work. Backend responses are
-snake_case protojson (`UseProtoNames`), matching the session.v1 proto
-field names.
+**Every remaining page talks to the real backend** — the mock pages
+(Dashboard, Sandboxes, Agents, Tasks, Orchestrations, SessionDetail)
+and `src/mocks/` were deleted (2026-08-07); their designs stay
+recoverable via git history and the qoder-preview repo for when they
+return with real backends. Backend responses are snake_case protojson
+(`UseProtoNames`), matching the session.v1 proto field names.
 
 ## The LLM Access page
 
