@@ -2,6 +2,18 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-07 — Agent templates (P2: frontend)
+
+- **managed-agents-frontend@c0940c4** — new Agents page (`/agents`):
+  real CRUD against `/api/agents` in a drawer form. The `platform_default`
+  mode is gated on `/api/me` (`can_use_platform_llm`); the API key field
+  is write-only (edit + empty = keep the stored key); tools are four
+  checkboxes where all-checked submits `[]` (= all tools). The chat page
+  gains an agent picker on new chats: a selected template governs the
+  session (local LLM settings are not sent) and shows as a name chip;
+  existing sessions resolve `agent_id` to a name best-effort — a deleted
+  template just hides the badge and never blocks the chat.
+
 ## 2026-08-07 — Agent templates (P1: contracts + backend)
 
 User-owned, reusable agent configs: name, description, system prompt,
