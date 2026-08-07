@@ -2,6 +2,28 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-07 — Default prompts live in the database (platform templates)
+
+- **agent-runtime@cb53464** — the built-in default system prompt is
+  deleted from code; an absent `system_prompt` means no system prompt
+  (pi-ai omits the system message for an empty value).
+- **managed-agents-backend@2002463, @4b066e8** — `agents` gains
+  `visibility` (`private` | `platform`). Platform templates are visible
+  and usable by everyone, read-only through the API (PATCH/DELETE 404),
+  and managed by migrations/ops SQL. Two seeds: `a000…0001` "Default
+  assistant" (the prompt removed from the runtime) and `a000…0002` "Pi
+  coding agent" (an adaptation of the pi coding-agent's prompt).
+- **managed-agents-frontend@bc7f994** — platform templates get a
+  Built-in badge with View (read-only drawer — the default prompt is
+  finally visible in the UI) and Clone (pre-filled create form) actions;
+  the chat picker default-selects the Default assistant for members and
+  disables platform_default options for non-members.
+- E2E verified live: the Default assistant's prompt was edited directly
+  in the database (chess grandmaster), the runtime restarted, and the
+  resumed session answered "Check, I am the king of the board…" —
+  default behavior is fully database-driven. Platform-template PATCH
+  returns 404.
+
 ## 2026-08-07 — Agent templates (P2: frontend)
 
 - **managed-agents-frontend@c0940c4** — new Agents page (`/agents`):
