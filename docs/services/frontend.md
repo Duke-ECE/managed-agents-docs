@@ -1,19 +1,28 @@
 # Frontend (managed-agents-frontend)
 
 React 19 + Vite 7 + Tailwind 4 SPA ("AgentDeck" console), served by
-nginx. Sign-in via Supabase (email/password; GitHub OAuth button exists
-but the provider is not enabled yet in Supabase).
+nginx. Sign-in via Supabase: email/password, or GitHub OAuth with
+deep-link restore (the intended path survives the OAuth round-trip).
 
 ## Routes
 
 `/login` is public; everything else sits behind an auth guard:
-Dashboard, Sandboxes, Agents, Sessions, Tasks, Orchestrations, Chat.
+Dashboard, Sandboxes, Agents, Sessions, Tasks, Orchestrations, Chat,
+Admin.
 
-**Only the Chat and Sessions pages talk to the real backend.** All
-other pages read mock data (`src/mocks/`, simulated 350 ms delay) —
+**Only the Chat, Sessions and Admin pages talk to the real backend.**
+All other pages read mock data (`src/mocks/`, simulated 350 ms delay) —
 migrating them to real endpoints is planned work. Backend responses are
 snake_case protojson (`UseProtoNames`), matching the session.v1 proto
 field names.
+
+## The Admin page
+
+Whitelist management (`team_members`): list/add/remove members, pick
+roles. The nav item appears only when `GET /api/me` reports `is_admin`;
+the backend enforces admin regardless. Whitelisted members may use the
+platform-default LLM provider; everyone else must configure their own
+key (the chat settings panel hides "Default provider" for them).
 
 ## The chat page
 

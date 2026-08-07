@@ -2,6 +2,36 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-07 — Team whitelist: open sign-in, gated platform LLM
+
+### Access control
+
+- **managed-agents-backend@bec9894** — sign-in is open (email/password +
+  GitHub OAuth), but the platform default LLM provider is now gated by
+  the new `team_members` whitelist (RLS, service-role only): a browser
+  that sends no API key must be whitelisted, otherwise
+  `POST /api/sessions` answers 403 `platform LLM access not granted:
+  configure your own API key or ask an admin`. User-supplied keys always
+  pass. New `internal/access/` slice + `infrastructure/teammembers`
+  PostgREST adapter; new endpoints `GET /api/me` and admin-only
+  `GET/POST/DELETE /api/admin/members`. Seeds `weihao.li@duke.edu` and
+  `admin@managed-agents.local` as admins, `tester@` as member. Verified
+  live: stranger 403 → admin adds → 200 → admin removes → 403 again.
+
+### Frontend
+
+- **managed-agents-frontend@dd056f4** — GitHub OAuth sign-in button with
+  deep-link restore (intended path survives the OAuth round-trip); new
+  Admin page for whitelist management (nav item only for `is_admin`);
+  chat settings hide the Default provider when `/api/me` says the
+  account has no platform access. Earlier @d5cd353 — transcripts are
+  cached in memory with stale-while-revalidate (instant session
+  revisits) plus sidebar hover prefetch.
+
+Note: the GitHub OAuth provider is enabled in Supabase separately (OAuth
+App credentials via `supabase config push`); the frontend button reports
+the provider error inline until then.
+
 ## 2026-08-01 — Session hydration: chats survive runtime restarts
 
 ### Session hydration & resume

@@ -10,16 +10,30 @@ Also owns auth and the platform default LLM provider.
 |--------|------|------|---------|
 | GET | `/api/health` | no | Liveness |
 | GET | `/api/message` | no | Demo payload (hostname, time) |
+| GET | `/api/me` | yes | Caller profile: email, `can_use_platform_llm`, `is_admin` |
 | POST | `/api/sessions` | yes | Create session (durable record + live agent) |
 | GET | `/api/sessions` | yes | List the caller's sessions (session-manager) |
 | DELETE | `/api/sessions/:id` | yes | End session (session-manager first, runtime best-effort) |
 | POST | `/api/sessions/:id/messages` | yes | Chat turn, SSE stream |
 | GET | `/api/sessions/:id/messages` | yes | Transcript from session-manager |
+| GET/POST/DELETE | `/api/admin/members` | admin | Whitelist CRUD (DELETE takes `/:email`) |
 
 Auth: Supabase JWT verified via JWKS
 (`<SUPABASE_URL>/auth/v1/.well-known/jwks.json`); the JWT `sub` becomes
 `user_id` and overrides any client-sent value. `SUPABASE_URL` unset →
 open mode (local dev only, loud startup warning).
+
+## Access model (team whitelist)
+
+Sign-in is open (email/password + GitHub OAuth), but the **platform
+default LLM provider is gated** by the `team_members` table (RLS,
+service-role only): a browser that sends no API key gets the default
+injected only if its email is whitelisted — otherwise
+`POST /api/sessions` answers 403 `platform LLM access not granted`.
+User-supplied keys always pass. Members with `role='admin'` manage the
+whitelist via `/api/admin/members`; the `internal/access/` slice owns
+the rules, `internal/infrastructure/teammembers/` is the PostgREST
+adapter. Open mode disables the gate.
 
 gRPC→HTTP error mapping: `NOT_FOUND→404`, `PERMISSION_DENIED→403`,
 `FAILED_PRECONDITION→410`, `RESOURCE_EXHAUSTED→429`, everything else→500.
