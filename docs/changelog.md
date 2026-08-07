@@ -2,6 +2,35 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-07 — Session titles + frontend polish
+
+### Auto session titles
+
+- **protos@v0.5.0** — additive: `session.v1.Session.title` + token-gated
+  `SetTitle` RPC.
+- **session-manager@f45b5d1** — `title` column on `agent_sessions`;
+  `SetTitle` (service-token only, 120-rune cap, does not touch
+  `last_active`, allowed on ended sessions).
+- **agent-runtime@5247197, @5d8c48f, @9c3c699** — a session that began
+  empty gets an LLM-generated title after its first completed turn
+  (fire-and-log, never blocks chat; hydrated sessions are never titled).
+  Two production-found fixes: reasoning models (gpt-oss) starved on a
+  32-token budget → 1024, and one delayed retry for free-tier 429s.
+- **managed-agents-backend@2cf55c1+** — protos bump; `title` flows
+  through ListSessions automatically.
+
+### Frontend polish (managed-agents-frontend@3e577f6)
+
+- Assistant messages render GFM markdown (react-markdown; lockfile
+  stays on registry.npmjs.org).
+- Route-level code splitting (chat/sessions/admin lazy): main chunk
+  back under 500 kB.
+- Composer becomes a Stop button while streaming; token usage shows
+  under finished assistant messages; dead topbar buttons removed;
+  sidebar + Sessions page display the auto-generated title.
+- Earlier @7d99c4e — console stripped to real pages only (mocks
+  deleted, `/` → `/chat`).
+
 ## 2026-08-07 — Team whitelist: open sign-in, gated platform LLM
 
 ### Access control
