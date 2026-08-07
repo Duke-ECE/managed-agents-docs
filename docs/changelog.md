@@ -2,6 +2,39 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-07 — Agent templates (P1: contracts + backend)
+
+User-owned, reusable agent configs: name, description, system prompt,
+`llm_mode` (`platform_default` | `custom`) + LLM triple, tools whitelist.
+A session references a template by id (reference semantics — re-resolved
+at create/resume, never snapshotted; a deleted template degrades to a
+template-less resume).
+
+- **protos@v0.6.0** — additive: `runtime.v1.CreateSessionRequest` gains
+  `system_prompt` + `tools`; `session.v1` gains `Session.agent_id` +
+  `CreateSessionRequest.agent_id`.
+- **session-manager@5810ade** — nullable `agent_id` column on
+  `agent_sessions`, threaded through CreateSession and all Session
+  responses.
+- **agent-runtime@837f253** — CreateSession applies a caller system
+  prompt (same path for fresh and hydrated sessions) and filters the
+  built-in read/write/bash/edit tools to the whitelist; unknown tool
+  names are INVALID_ARGUMENT before any session state exists.
+- **managed-agents-backend@d3b8b9c, @e333bb9** — new `agents` table
+  (RLS, service-role only) + `internal/agent` slice +
+  `GET/POST /api/agents`, `GET/PATCH/DELETE /api/agents/:id` (user-scoped;
+  `llm_api_key` is write-only — reads expose `has_api_key`). CreateSession
+  and resume resolve the template: a custom template supplies its LLM
+  triple, a platform_default template passes the whitelist gate like a
+  key-less request. One production-found fix: a nil tools whitelist
+  marshalled to JSON null and violated the column's not-null constraint
+  (now sent as `[]`).
+- E2E verified live: template → session → pirate persona answers →
+  runtime restart → resume re-applies the template → template edited to a
+  knight persona → next resume answers as a knight.
+
+Frontend UI (Agents page, chat-time agent picker) is P2, not yet built.
+
 ## 2026-08-07 — Session titles + frontend polish
 
 ### Auto session titles
