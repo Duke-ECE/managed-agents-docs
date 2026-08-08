@@ -2,6 +2,23 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-07 — System prompts persist in the transcript
+
+- **agent-runtime@decc07d** — a session's system prompt is recorded in
+  the durable transcript as `role: "system"` turns (first turn of a
+  prompted session; re-recorded when a template edit changes the prompt
+  between resumes — the last system turn is always the latest config).
+  Resume precedence: request `system_prompt` (live template's current
+  value) > transcript's last system turn > none. Deleting a template no
+  longer silently drops the persona — the resumed session falls back to
+  the transcript. Verified live: template deleted + runtime restarted →
+  the pirate persona survived.
+- **managed-agents-frontend@7e40ffe** — system turns render as a
+  centered, truncated muted pill (full text on hover) instead of being
+  silently dropped.
+- session-manager/backend: no changes needed (transcript roles were
+  already opaque pass-through strings).
+
 ## 2026-08-07 — Default prompts live in the database (platform templates)
 
 - **agent-runtime@cb53464** — the built-in default system prompt is
