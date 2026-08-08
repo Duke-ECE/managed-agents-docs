@@ -2,6 +2,34 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-08 — Session scalability & management (protos v0.7.0)
+
+- **Contracts (protos@v0.7.0)** — additive: `ListSessions` limit/offset +
+  `has_more`; `GetTranscript` limit/before_seq latest-window reads +
+  `has_more` (limit 0 keeps the legacy full fetch); new `DeleteSession`
+  RPC (owner-scoped, removes session + transcript); `SetTitle` accepts
+  the session owner alongside the service token.
+- **session-manager@c495318** — pagination implemented via
+  fetch-plus-one; `DeleteSession` (messages first, then the session);
+  owner-path `SetTitle`; retention janitor (`RETENTION_DAYS`, default
+  off, 30 in k8s) sweeps ended sessions past the cutoff daily.
+- **agent-runtime@86a5d0a** — hydration fetches only the latest
+  `HYDRATION_MAX_TURNS` (default 50) transcript messages, so long
+  sessions no longer blow the context window on resume; assistant turns
+  persist token usage in `content_json.usage` (same counts as the SSE
+  done frame).
+- **managed-agents-backend@a14c0d2** — `GET /api/sessions?limit=&offset=`
+  and `GET /api/sessions/:id/messages?limit=&before_seq=` pass through
+  with `has_more` (invalid values → 400); `PATCH /api/sessions/:id/title`
+  (owner rename); `DELETE /api/sessions/:id?purge=true` hard-deletes
+  (best-effort runtime teardown first); plain DELETE unchanged.
+- **managed-agents-frontend@ef9c7f9** — sidebar search, Load more,
+  inline rename, end + hard-delete (ConfirmDialog); transcript opens
+  with the latest 50 messages and prepends older windows (Load
+  earlier); the SWR transcript cache persists to sessionStorage;
+  historical assistant usage renders from the persisted payload;
+  interrupted replies show a "partial — not saved" mark.
+
 ## 2026-08-07 — System prompts persist in the transcript
 
 - **agent-runtime@decc07d** — a session's system prompt is recorded in
