@@ -2,6 +2,21 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-08 — Marker recovery beyond the hydration window
+
+- **agent-runtime@ff1e18f** — fix for an interaction between windowed
+  hydration and the transcript markers: `system`/`config` turns sit at
+  the transcript's head, so a long session's latest-N window may contain
+  none, silently dropping the frozen-LLM guarantee (the request llm
+  would take over — a model switch) and the deleted-template prompt
+  fallback. When the window is truncated and a marker is missing, the
+  runtime now makes one extra full-transcript fetch used ONLY to extract
+  the markers; the model context still comes from the window. Verified
+  live with `HYDRATION_MAX_TURNS=4`: a poisoned template (fake key)
+  could not hijack a resumed session, and a deleted template's pirate
+  persona survived — the runtime logs show "recovered system/config
+  markers from beyond the window" for both.
+
 ## 2026-08-08 — Sessions never switch models (frozen LLM)
 
 - **agent-runtime@d4b70a4** — a session's resolved LLM triple is
