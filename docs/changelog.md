@@ -2,6 +2,25 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-08 — Sessions never switch models (frozen LLM)
+
+- **agent-runtime@d4b70a4** — a session's resolved LLM triple is
+  persisted as transcript `role: "config"` turns and wins over the
+  request llm on resume: the model is frozen at creation, so editing a
+  template's LLM or the platform default never switches an existing
+  session. Deliberately asymmetric with the system prompt, which keeps
+  reference semantics (template edits still propagate on resume).
+- **session-manager@e01b71f** — owner-path transcript reads strip
+  `api_key` from config turns (the platform key must never reach a
+  browser); the token path keeps the full triple for hydration.
+- **managed-agents-frontend@3d6dafc** — config turns are skipped as
+  session metadata (still counted for Load-earlier pagination).
+- E2E verified live: session created on the platform model → template
+  poisoned with a fake custom key → runtime restarted → resume answered
+  normally with the frozen original triple (the fake key was never
+  touched); owner transcript read showed the config turn with `api_key`
+  absent.
+
 ## 2026-08-08 — Session scalability & management (protos v0.7.0)
 
 - **Contracts (protos@v0.7.0)** — additive: `ListSessions` limit/offset +
