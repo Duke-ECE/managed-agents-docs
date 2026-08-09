@@ -2,6 +2,19 @@
 
 All notable changes to the managed-agents project are documented here.
 
+## 2026-08-08 — Chat-page LLM settings removed
+
+- **managed-agents-frontend@ca37c89** — LLM configuration now lives
+  exclusively in agent templates. The chat header's settings button and
+  panel, the browser-stored custom key, and the picker's "No agent"
+  option are gone: every fresh chat creates its session with an
+  `agent_id` (members default to the built-in Default assistant; others
+  fall back to their first usable private template). When nothing is
+  selectable — mainly non-members with no templates yet — a hint points
+  to the Agents page and the composer stays disabled. The backend's
+  ad-hoc `llm` request body remains supported for API compatibility;
+  the console simply no longer uses it.
+
 ## 2026-08-08 — Marker recovery beyond the hydration window
 
 - **agent-runtime@ff1e18f** — fix for an interaction between windowed
