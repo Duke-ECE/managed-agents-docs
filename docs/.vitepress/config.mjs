@@ -12,6 +12,7 @@ export default defineConfig({
       { text: 'Contracts', link: '/contracts' },
       { text: 'Operations', link: '/operations' },
       { text: 'Standards', link: '/standards' },
+      { text: 'SDK', link: '/sdk' },
     ],
     sidebar: [
       { text: 'Project Overview', link: '/' },
@@ -32,6 +33,7 @@ export default defineConfig({
       { text: 'Operations', link: '/operations' },
       { text: 'Engineering Standards', link: '/standards' },
       { text: 'Changelog', link: '/changelog' },
+      { text: 'Chat SDK', link: '/sdk' },
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Duke-ECE/managed-agents-docs' },
