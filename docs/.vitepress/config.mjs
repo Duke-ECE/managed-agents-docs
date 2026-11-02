@@ -7,6 +7,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Developers', link: '/developers/' },
       { text: 'Architecture', link: '/architecture' },
       { text: 'Services', link: '/services/' },
       { text: 'Contracts', link: '/contracts' },
@@ -15,6 +16,14 @@ export default defineConfig({
     ],
     sidebar: [
       { text: 'Project Overview', link: '/' },
+      {
+        text: 'Developer Guide',
+        link: '/developers/',
+        items: [
+          { text: 'Get started', link: '/developers/' },
+          { text: 'API guide', link: '/developers/api-guide' },
+        ],
+      },
       { text: 'Architecture', link: '/architecture' },
       {
         text: 'Services',
