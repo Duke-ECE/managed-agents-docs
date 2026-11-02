@@ -1,8 +1,8 @@
 # API guide
 
-Use this guide to call a hosted agent from your application's server. The
-console also has an [API guide tab](https://managed-agents.colab.duke.edu/keys?tab=docs)
-beside your keys; this page is the shareable documentation for the same flow.
+Use this guide to call a hosted agent from your application's server. This is
+the canonical API guide; the console's [API Keys page](https://managed-agents.colab.duke.edu/keys)
+links here for examples while keeping key management in the console.
 
 **Base URL:** `https://api-managed-agent.colab.duke.edu`
 

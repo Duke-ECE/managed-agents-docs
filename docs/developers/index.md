@@ -6,7 +6,7 @@ create sessions and stream replies through the HTTP API.
 
 ## Before you start
 
-1. [Sign in to the console](https://managed-agents.colab.duke.edu/login).
+1. [Open the console](https://managed-agents.colab.duke.edu/console). Sign in if prompted.
 2. Create or clone an agent on the [Agents page](https://managed-agents.colab.duke.edu/agents).
    Choose its instructions, model, and allowed tools. You will need its
    **agent ID** for the API call. The console does not currently display IDs;
