@@ -34,7 +34,7 @@ sketch, **not a diagram of the current deployment**.
 
 <DiagramZoom />
 
-<a :href="withBase('/diagrams/agent-runtime-concept.png')">Open the diagram at full size</a>.
+<a :href="withBase('/diagrams/agent-runtime-concept.png?v=2bc359e9')">Open the diagram at full size</a>.
 
 The live system differs in several important ways: the runtime keeps
 active sessions in memory and rehydrates them from Supabase Postgres;
