@@ -18,7 +18,7 @@ export default defineConfig({
         { text: 'Operations', link: '/operations' },
         { text: 'Standards', link: '/standards' },
       ] },
-      { text: 'Console ↗', link: 'https://managed-agents.colab.duke.edu/agents' },
+      { text: 'Console ↗', link: 'https://managed-agents.colab.duke.edu/console' },
     ],
     search: { provider: 'local' },
     sidebar: [

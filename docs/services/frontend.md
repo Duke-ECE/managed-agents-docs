@@ -6,9 +6,13 @@ deep-link restore (the intended path survives the OAuth round-trip).
 
 ## Routes
 
-`/login` is public; everything else sits behind an auth guard: Chat
-(`/chat`, `/chat/:id`), Sessions (`/sessions`), LLM Access (`/admin`).
-`/` redirects to `/chat`.
+`/` is the public product homepage; `/login` is public. `/console` is the
+stable console entry: it requires login and then opens `/agents`. The guarded
+console routes are Chat (`/chat`, `/chat/:id`), Sessions (`/sessions`), Agents
+(`/agents`), API Keys (`/keys`), and admin-only LLM Access (`/admin`). A direct
+login defaults to `/console`; guarded deep links return to their intended
+route after sign-in. Older `/keys?tab=docs` links redirect to the public
+[API guide](../developers/api-guide). Unknown frontend paths show a 404 page.
 
 **Every remaining page talks to the real backend** — the mock pages
 (Dashboard, Sandboxes, Agents, Tasks, Orchestrations, SessionDetail)

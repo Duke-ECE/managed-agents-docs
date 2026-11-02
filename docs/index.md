@@ -11,7 +11,7 @@ hero:
       link: /developers/
     - theme: alt
       text: Open the console ↗
-      link: https://managed-agents.colab.duke.edu/agents
+      link: https://managed-agents.colab.duke.edu/console
 features:
   - title: 01 · Get started
     details: Create an agent and API key, then connect your application from its server.
@@ -37,7 +37,7 @@ features:
 
 Start with the [Developer Guide](./developers/) for agent and API key setup.
 Keep the [API guide](./developers/api-guide) nearby for request bodies, SSE
-events, response handling, and errors. The [console](https://managed-agents.colab.duke.edu/agents)
+events, response handling, and errors. The [console](https://managed-agents.colab.duke.edu/console)
 is where you configure agents and issue keys.
 
 ### Working on the platform
