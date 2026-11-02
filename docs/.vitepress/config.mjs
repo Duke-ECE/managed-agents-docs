@@ -18,11 +18,11 @@ export default defineConfig({
         { text: 'Operations', link: '/operations' },
         { text: 'Standards', link: '/standards' },
       ] },
-      { text: 'Console ↗', link: 'https://managed-agents.colab.duke.edu/' },
+      { text: 'Console ↗', link: 'https://managed-agents.colab.duke.edu/agents' },
     ],
     search: { provider: 'local' },
     sidebar: [
-      { text: 'Project Overview', link: '/' },
+      { text: 'Documentation home', link: '/' },
       {
         text: 'Developer Guide',
         link: '/developers/',

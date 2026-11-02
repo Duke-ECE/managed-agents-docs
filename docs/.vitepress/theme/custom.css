@@ -30,13 +30,10 @@
 .VPSidebar { background: var(--vp-c-bg) !important; }
 
 .VPHome { background: radial-gradient(ellipse 70% 26% at 78% 8%, rgb(89 143 240 / 10%), transparent 70%); }
-.VPHomeHero { padding-top: 76px !important; padding-bottom: 80px !important; }
-.VPHomeHero .name { color: var(--vp-c-brand-1) !important; font-size: clamp(19px, 2.5vw, 28px) !important; letter-spacing: -.04em; }
-.VPHomeHero .text { max-width: 680px; font-size: clamp(42px, 5vw, 68px) !important; font-weight: 700; letter-spacing: -.065em; line-height: 1.06; }
-.VPHomeHero .tagline { max-width: 590px; font-size: 17px; line-height: 1.65; }
-.VPHomeHero .image-container { transform: none; }
-.VPHomeHero .image-bg { display: none; }
-.VPHomeHero .image-src { width: min(100%, 500px); max-width: 500px; max-height: none; border-radius: 16px; filter: drop-shadow(0 30px 38px rgb(28 46 82 / 18%)); }
+.VPHomeHero { padding-top: 62px !important; padding-bottom: 48px !important; }
+.VPHomeHero .name { color: var(--vp-c-brand-1) !important; font-size: 17px !important; letter-spacing: .04em; text-transform: uppercase; }
+.VPHomeHero .text { max-width: 680px; font-size: clamp(38px, 4.5vw, 56px) !important; font-weight: 700; letter-spacing: -.055em; line-height: 1.1; }
+.VPHomeHero .tagline { max-width: 590px; font-size: 16px; line-height: 1.65; }
 .VPHomeHero .actions .VPButton { border-radius: 9px; font-weight: 600; }
 .VPFeature { border: 1px solid var(--vp-c-divider) !important; border-radius: 14px !important; background: var(--vp-c-bg) !important; box-shadow: 0 12px 32px rgb(28 46 82 / 5%); transition: transform .18s, box-shadow .18s; }
 .VPFeature:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgb(28 46 82 / 10%); }
@@ -57,14 +54,11 @@
 .docs-diagram-close { position: absolute; top: 16px; right: 20px; padding: 8px 12px; border: 1px solid rgb(255 255 255 / 30%); border-radius: 8px; color: #fff; background: rgb(255 255 255 / 12%); font-size: 14px; cursor: pointer; }
 
 @media (max-width: 960px) {
-  .VPHomeHero { padding-top: 52px !important; padding-bottom: 50px !important; }
-  .VPHomeHero .image-src { max-width: 430px; }
+  .VPHomeHero { padding-top: 48px !important; padding-bottom: 36px !important; }
 }
 
 @media (max-width: 640px) {
-  .VPHomeHero .main { order: 1; }
-  .VPHomeHero .image { order: 2; margin-top: 40px; }
-  .VPHomeHero .text { font-size: 42px !important; }
+  .VPHomeHero .text { font-size: 40px !important; }
   .VPHomeHero .tagline { font-size: 15px; }
   .VPHome .vp-doc { padding: 42px 24px 70px; }
   .VPHome .vp-doc h2 { font-size: 24px; }
