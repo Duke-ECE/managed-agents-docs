@@ -1,62 +1,57 @@
 ---
 layout: home
-title: Managed Agents
+title: Documentation
 hero:
-  name: Managed Agents
-  text: Hosted agents for your apps.
-  tagline: Configure an agent once, connect from your server, and stream conversations through one API.
-  image:
-    src: /hero-flow.svg
-    alt: Your application connects to the Managed Agents API and a hosted agent
+  name: Documentation
+  text: Find the right guide.
+  tagline: Integration steps, API examples, and technical references for Managed Agents.
   actions:
     - theme: brand
-      text: Get started
+      text: Start integrating
       link: /developers/
     - theme: alt
-      text: API guide
-      link: /developers/api-guide
+      text: Open the console ↗
+      link: https://managed-agents.colab.duke.edu/agents
 features:
-  - title: Developer Guide
-    details: Set up an agent and API key, then connect your application from its server.
+  - title: 01 · Get started
+    details: Create an agent and API key, then connect your application from its server.
     link: /developers/
-    linkText: Start integrating
-  - title: API guide
-    details: Copy HTTP requests for sessions, streaming replies, and reading transcripts.
+    linkText: Developer Guide
+  - title: 02 · Call the API
+    details: Authentication, copyable requests, streamed events, and session endpoints.
     link: /developers/api-guide
-    linkText: View API examples
-  - title: Architecture
-    details: See the runtime, session service, and execution environment in the design sketch.
-    link: /architecture#design-sketch-proposed
-    linkText: Explore the diagram
+    linkText: API guide
+  - title: 03 · Understand the system
+    details: Follow the request flow and inspect the proposed architecture diagram.
+    link: /architecture
+    linkText: Architecture
+  - title: 04 · Run the platform
+    details: Deployment, operations, contracts, and service implementation guides.
+    link: /operations
+    linkText: Operations
 ---
 
-## One platform, two ways to use it
+## Choose a path
 
-Use the [console](https://managed-agents.colab.duke.edu/) to configure agents and
-chat directly. To embed an agent in another application, create an API key and
-call the [session API](./developers/api-guide) from your server. Sessions and
-transcripts are saved so conversations can continue later.
+### Integrating an application
 
-The [architecture page](./architecture) includes a proposed system diagram and
-explains where the current deployment differs from that design.
+Start with the [Developer Guide](./developers/) for agent and API key setup.
+Keep the [API guide](./developers/api-guide) nearby for request bodies, SSE
+events, response handling, and errors. The [console](https://managed-agents.colab.duke.edu/agents)
+is where you configure agents and issue keys.
 
-## Platform at a glance
+### Working on the platform
 
-| Capability | Current behavior |
-| --- | --- |
-| Hosted agents | Reusable templates with instructions, model settings, and allowed tools |
-| Streaming chat | HTTP request with Server-Sent Events for the reply |
-| Session history | Durable transcripts with owner-checked access and resume after runtime restarts |
-| Authentication | Supabase login for the console; server-side API keys for session calls |
-| Tool execution | Isolated sandbox infrastructure exists; runtime wiring is still planned |
+Read the [Architecture](./architecture) page for the current request flow and
+the proposed design diagram. The [service guides](./services/) describe each
+repository's responsibilities; [Contracts](./contracts) cover their shared
+gRPC interfaces.
 
-## Explore the platform
+### Deploying or troubleshooting
 
-- [Service guides](./services/) describe the backend, agent runtime, session manager, sandbox manager, and frontend.
-- [Contracts](./contracts) document the shared gRPC interfaces.
-- [Deployment](./deployment) and [Operations](./operations) cover running the platform.
-- [Engineering Standards](./standards) and the [Changelog](./changelog) support contributors.
+Use [Deployment](./deployment) for release layout, [Operations](./operations)
+for cluster procedures, [Engineering Standards](./standards) for contribution
+rules, and the [Changelog](./changelog) for shipped changes.
 
-Managed Agents is a Duke ECE project. The [console](https://managed-agents.colab.duke.edu/)
-and [backend API](https://api-managed-agent.colab.duke.edu/) run on the team's
-Kubernetes cluster; this documentation is published through GitHub Pages.
+Looking for the product overview? Go to the
+[Managed Agents homepage](https://managed-agents.colab.duke.edu/).
