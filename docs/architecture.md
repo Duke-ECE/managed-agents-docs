@@ -21,6 +21,25 @@ sandbox-manager (Go gRPC, :50051)
 External dependencies: Supabase (auth + Postgres), an OpenAI-compatible
 LLM endpoint (default: OpenRouter), GitHub Container Registry.
 
+## Design sketch (proposed)
+
+The diagram below captures a proposed split between an agent runtime, a
+session service, and an isolated execution environment. It is a design
+sketch, **not a diagram of the current deployment**.
+
+<img src="/diagrams/agent-runtime-concept.png" alt="Proposed agent architecture: applications connect to an agent runtime, with separate session storage and sandbox execution services">
+
+[Open the diagram at full size](/diagrams/agent-runtime-concept.png).
+
+The live system differs in several important ways: the runtime keeps
+active sessions in memory and rehydrates them from Supabase Postgres;
+session data is not stored as JSONL; internal calls use gRPC; sandbox
+execution is not yet connected to the runtime; and persistent workspaces
+are not deployed. The endpoint and environment-variable examples in the
+image are illustrative rather than instructions for the live API. Use the
+[service guides](./services/) and [contracts](./contracts) for the
+implemented interfaces.
+
 ## Request flows
 
 ### Sign in
