@@ -4,11 +4,22 @@ A Duke ECE team project: a platform where browser users chat with LLM
 agents, deployed on a self-managed Kubernetes cluster running on four
 Duke VCM virtual machines.
 
+Managed Agents also hosts reusable agents for other applications. If you
+are integrating one into your product, start with the [Developer Guide](./developers/)
+and its [API guide](./developers/api-guide). The guide covers agent setup,
+server-side API keys, sessions, and streamed replies.
+
+## Start here
+
+- [Developer Guide](./developers/) — connect your application to a hosted agent.
+- [API guide](./developers/api-guide) — API address, authentication, and copyable requests.
+- [Architecture diagram](./architecture#design-sketch-proposed) — the proposed runtime, session, and sandbox split, with notes on what is deployed today.
+
 ## Live endpoints
 
 | What | URL |
 |------|-----|
-| Frontend (AgentDeck console) | <https://managed-agents.colab.duke.edu> |
+| Public site and console | <https://managed-agents.colab.duke.edu> |
 | Backend API | <https://api-managed-agent.colab.duke.edu> |
 | Docs (this site) | <https://duke-ece.github.io/managed-agents-docs/> |
 

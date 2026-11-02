@@ -1,5 +1,9 @@
 # Architecture
 
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 ## System overview
 
 ```
@@ -27,9 +31,9 @@ The diagram below captures a proposed split between an agent runtime, a
 session service, and an isolated execution environment. It is a design
 sketch, **not a diagram of the current deployment**.
 
-<img src="/diagrams/agent-runtime-concept.png" alt="Proposed agent architecture: applications connect to an agent runtime, with separate session storage and sandbox execution services">
+<img :src="withBase('/diagrams/agent-runtime-concept.png')" alt="Proposed agent architecture: applications connect to an agent runtime, with separate session storage and sandbox execution services">
 
-[Open the diagram at full size](/diagrams/agent-runtime-concept.png).
+<a :href="withBase('/diagrams/agent-runtime-concept.png')">Open the diagram at full size</a>.
 
 The live system differs in several important ways: the runtime keeps
 active sessions in memory and rehydrates them from Supabase Postgres;

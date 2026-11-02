@@ -4,6 +4,10 @@ Go 1.25 + Gin. The thin HTTP→gRPC proxy: browser traffic (JSON + SSE)
 becomes `session.v1.SessionService` and `runtime.v1.AgentService` calls.
 Also owns auth and the platform default LLM provider.
 
+Application developers should start with the [Developer Guide](../developers/)
+and [API guide](../developers/api-guide). This page describes the backend's
+internal behavior and service configuration.
+
 ## Endpoints
 
 | Method | Path | Auth | Purpose |
