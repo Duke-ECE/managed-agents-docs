@@ -4,16 +4,22 @@ export default defineConfig({
   title: 'Managed Agents',
   description: 'Documentation for the managed-agents platform (Duke ECE)',
   base: '/managed-agents-docs/',
+  head: [['link', { rel: 'icon', href: '/managed-agents-docs/favicon.svg' }]],
   themeConfig: {
+    logo: '/favicon.svg',
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Developers', link: '/developers/' },
+      { text: 'Developer Guide', link: '/developers/' },
+      { text: 'API guide', link: '/developers/api-guide' },
       { text: 'Architecture', link: '/architecture' },
-      { text: 'Services', link: '/services/' },
-      { text: 'Contracts', link: '/contracts' },
-      { text: 'Operations', link: '/operations' },
-      { text: 'Standards', link: '/standards' },
+      { text: 'Platform', items: [
+        { text: 'Services', link: '/services/' },
+        { text: 'Contracts', link: '/contracts' },
+        { text: 'Operations', link: '/operations' },
+        { text: 'Standards', link: '/standards' },
+      ] },
+      { text: 'Console ↗', link: 'https://managed-agents.colab.duke.edu/' },
     ],
+    search: { provider: 'local' },
     sidebar: [
       { text: 'Project Overview', link: '/' },
       {

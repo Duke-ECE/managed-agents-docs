@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">Managed Agents integration</title>
+  <desc id="desc">A server connects through the Managed Agents API to a hosted agent and durable session.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#192233"/><stop offset="1" stop-color="#0d121c"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#307cf5"/><stop offset="1" stop-color="#1054cc"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#102247" flood-opacity=".2"/></filter>
+  </defs>
+  <rect x="12" y="12" width="536" height="336" rx="22" fill="url(#panel)" stroke="#354159" filter="url(#shadow)"/>
+  <path d="M12 62h536" stroke="#354159"/>
+  <circle cx="38" cy="38" r="5" fill="#6f7d96"/><circle cx="55" cy="38" r="5" fill="#6f7d96"/><circle cx="72" cy="38" r="5" fill="#6f7d96"/>
+  <text x="455" y="42" font-family="ui-monospace,monospace" font-size="10" fill="#91a5c9">INTEGRATION</text>
+  <rect x="38" y="105" width="135" height="112" rx="13" fill="#202b3e" stroke="#465774"/>
+  <rect x="212" y="105" width="135" height="112" rx="13" fill="url(#blue)" stroke="#83afff"/>
+  <rect x="386" y="105" width="135" height="112" rx="13" fill="#202b3e" stroke="#465774"/>
+  <path d="M179 161h26m-7-7 7 7-7 7M353 161h26m-7-7 7 7-7 7" fill="none" stroke="#82aaf7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="88" y="126" width="35" height="26" rx="4" fill="none" stroke="#a7c4fb" stroke-width="2"/><path d="M88 134h35" stroke="#a7c4fb" stroke-width="2"/>
+  <circle cx="280" cy="138" r="14" fill="none" stroke="#fff" stroke-width="2"/><path d="M273 138h14m-8-5 5 5-5 5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="453" cy="138" r="13" fill="none" stroke="#a7c4fb" stroke-width="2"/><circle cx="453" cy="138" r="4" fill="#a7c4fb"/>
+  <text x="105" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#f4f7ff">Your app</text>
+  <text x="280" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#fff">Managed API</text>
+  <text x="453" y="184" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#f4f7ff">Hosted agent</text>
+  <path d="M280 217v26m-7-7 7 7 7-7" fill="none" stroke="#82aaf7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="190" y="249" width="180" height="54" rx="10" fill="#1c2838" stroke="#455772"/>
+  <circle cx="217" cy="276" r="6" fill="#40d9a6"/><text x="237" y="281" font-family="Arial,sans-serif" font-size="14" font-weight="600" fill="#dce8fb">Saved sessions</text>
+  <text x="38" y="324" font-family="ui-monospace,monospace" font-size="10" fill="#7f93b1">SERVER-SIDE KEY</text>
+  <text x="464" y="324" font-family="ui-monospace,monospace" font-size="10" fill="#7f93b1">SSE STREAM</text>
+</svg>

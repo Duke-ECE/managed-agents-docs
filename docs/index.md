@@ -1,74 +1,62 @@
-# Managed Agents
+---
+layout: home
+title: Managed Agents
+hero:
+  name: Managed Agents
+  text: Hosted agents for your apps.
+  tagline: Configure an agent once, connect from your server, and stream conversations through one API.
+  image:
+    src: /hero-flow.svg
+    alt: Your application connects to the Managed Agents API and a hosted agent
+  actions:
+    - theme: brand
+      text: Get started
+      link: /developers/
+    - theme: alt
+      text: API guide
+      link: /developers/api-guide
+features:
+  - title: Developer Guide
+    details: Set up an agent and API key, then connect your application from its server.
+    link: /developers/
+    linkText: Start integrating
+  - title: API guide
+    details: Copy HTTP requests for sessions, streaming replies, and reading transcripts.
+    link: /developers/api-guide
+    linkText: View API examples
+  - title: Architecture
+    details: See the runtime, session service, and execution environment in the design sketch.
+    link: /architecture#design-sketch-proposed
+    linkText: Explore the diagram
+---
 
-A Duke ECE team project: a platform where browser users chat with LLM
-agents, deployed on a self-managed Kubernetes cluster running on four
-Duke VCM virtual machines.
+## One platform, two ways to use it
 
-Managed Agents also hosts reusable agents for other applications. If you
-are integrating one into your product, start with the [Developer Guide](./developers/)
-and its [API guide](./developers/api-guide). The guide covers agent setup,
-server-side API keys, sessions, and streamed replies.
+Use the [console](https://managed-agents.colab.duke.edu/) to configure agents and
+chat directly. To embed an agent in another application, create an API key and
+call the [session API](./developers/api-guide) from your server. Sessions and
+transcripts are saved so conversations can continue later.
 
-## Start here
+The [architecture page](./architecture) includes a proposed system diagram and
+explains where the current deployment differs from that design.
 
-- [Developer Guide](./developers/) — connect your application to a hosted agent.
-- [API guide](./developers/api-guide) — API address, authentication, and copyable requests.
-- [Architecture diagram](./architecture#design-sketch-proposed) — the proposed runtime, session, and sandbox split, with notes on what is deployed today.
+## Platform at a glance
 
-## Live endpoints
+| Capability | Current behavior |
+| --- | --- |
+| Hosted agents | Reusable templates with instructions, model settings, and allowed tools |
+| Streaming chat | HTTP request with Server-Sent Events for the reply |
+| Session history | Durable transcripts with owner-checked access and resume after runtime restarts |
+| Authentication | Supabase login for the console; server-side API keys for session calls |
+| Tool execution | Isolated sandbox infrastructure exists; runtime wiring is still planned |
 
-| What | URL |
-|------|-----|
-| Public site and console | <https://managed-agents.colab.duke.edu> |
-| Backend API | <https://api-managed-agent.colab.duke.edu> |
-| Docs (this site) | <https://duke-ece.github.io/managed-agents-docs/> |
+## Explore the platform
 
-## What it does today
+- [Service guides](./services/) describe the backend, agent runtime, session manager, sandbox manager, and frontend.
+- [Contracts](./contracts) document the shared gRPC interfaces.
+- [Deployment](./deployment) and [Operations](./operations) cover running the platform.
+- [Engineering Standards](./standards) and the [Changelog](./changelog) support contributors.
 
-- **Chat with an LLM agent** from the browser over a live SSE stream.
-  Sign in with email/password or GitHub (Supabase auth); sessions are
-  private to their owner.
-- **Agent templates**: named, reusable configs (system prompt, LLM,
-  tools whitelist) under `/agents`. Two built-in platform templates
-  (Default assistant, Pi coding agent) are visible to everyone and
-  read-only — clone one to customize. A session references its template;
-  the template is re-resolved on resume, and the system prompt is also
-  persisted in the transcript so deleting a template never orphans the
-  persona.
-- **Zero-config chat**: a platform default provider (OpenRouter
-  `openai/gpt-oss-20b:free`) is injected server-side for whitelisted
-  members who bring no API key. Anyone can alternatively point the agent
-  at any OpenAI-compatible endpoint with their own key. The whitelist is
-  managed by admins on the LLM Access page.
-- **Durable sessions**: every session and every chat turn is persisted
-  (Supabase Postgres) by the session-manager service — ownership is
-  enforced there, transcripts are readable via API, and sessions resume
-  automatically after runtime restarts (transcript hydration).
-- **Sandboxed tool execution** (infrastructure ready): sandbox-manager
-  runs pooled, single-use Kubernetes sandboxes with a gRPC `Execute`
-  API. Wiring it into the agent runtime is the next milestone.
-
-## Repositories
-
-| Repo | What |
-|------|------|
-| [managed-agents-frontend](https://github.com/Duke-ECE/managed-agents-frontend) | React SPA console (Chat, Sessions, Agents, LLM Access) |
-| [managed-agents-backend](https://github.com/Duke-ECE/managed-agents-backend) | Go/Gin HTTP→gRPC proxy, auth, whitelist, agent templates, default LLM provider |
-| [agent-runtime](https://github.com/Duke-ECE/agent-runtime) | TypeScript gRPC server hosting pi agent sessions |
-| [session-manager](https://github.com/Duke-ECE/session-manager) | Go gRPC service: durable sessions + privilege |
-| [sandbox-manager](https://github.com/Duke-ECE/sandbox-manager) | Go gRPC service: pooled single-use k8s sandboxes |
-| [protos](https://github.com/Duke-ECE/protos) | All gRPC contracts (buf, tagged releases) |
-| [standards](https://github.com/Duke-ECE/standards) | Engineering rules + Go service template |
-| [managed-agents-docs](https://github.com/Duke-ECE/managed-agents-docs) | This site |
-| [teamSkills](https://github.com/Duke-ECE/teamSkills) | Cluster ops + team coordination skills |
-
-## Infrastructure
-
-| Piece | Detail |
-|-------|--------|
-| Cluster | 4 × Duke VCM VMs, kubeadm (Kubernetes v1.34.9), containerd, Flannel |
-| Registry | `ghcr.io/duke-ece/*` with a `ghcr-pull` imagePullSecret |
-| Ingress | ingress-nginx DaemonSet with `hostNetwork` — every node serves 80/443 |
-| TLS | cert-manager, Let's Encrypt (`letsencrypt-prod` ClusterIssuer) |
-| Auth & DB | Supabase project `managed_agents` (Canada Central) |
-| CI/CD | GitHub Actions per repo: test → docker → ghcr → `kubectl` rollout |
+Managed Agents is a Duke ECE project. The [console](https://managed-agents.colab.duke.edu/)
+and [backend API](https://api-managed-agent.colab.duke.edu/) run on the team's
+Kubernetes cluster; this documentation is published through GitHub Pages.
