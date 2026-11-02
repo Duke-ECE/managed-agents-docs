@@ -278,7 +278,7 @@ the provider error inline until then.
 ### Chat product
 
 - agent-runtime (TypeScript, pi agent core) serves `runtime.v1.AgentService`
-  with SSE-bridged chat; the AgentDeck frontend's chat page is live —
+  with SSE-bridged chat; the Managed Agents frontend's chat page is live —
   all other console pages remain mock.
 - **Default LLM provider**: OpenRouter (`openai/gpt-oss-20b:free`) stored
   in Supabase `llm_providers` (RLS-locked), injected server-side by the
