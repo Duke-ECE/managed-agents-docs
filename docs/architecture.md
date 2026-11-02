@@ -2,6 +2,7 @@
 
 <script setup>
 import { withBase } from 'vitepress'
+import DiagramZoom from './.vitepress/theme/components/DiagramZoom.vue'
 </script>
 
 ## System overview
@@ -31,7 +32,7 @@ The diagram below captures a proposed split between an agent runtime, a
 session service, and an isolated execution environment. It is a design
 sketch, **not a diagram of the current deployment**.
 
-<img :src="withBase('/diagrams/agent-runtime-concept.png')" alt="Proposed agent architecture: applications connect to an agent runtime, with separate session storage and sandbox execution services">
+<DiagramZoom />
 
 <a :href="withBase('/diagrams/agent-runtime-concept.png')">Open the diagram at full size</a>.
 
