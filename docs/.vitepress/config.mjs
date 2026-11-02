@@ -7,6 +7,7 @@ export default defineConfig({
   head: [['link', { rel: 'icon', href: '/managed-agents-docs/favicon.svg' }]],
   themeConfig: {
     logo: '/favicon.svg',
+    logoLink: 'https://managed-agents.colab.duke.edu/',
     nav: [
       { text: 'Developer Guide', link: '/developers/' },
       { text: 'API guide', link: '/developers/api-guide' },
