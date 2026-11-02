@@ -2,7 +2,7 @@
 import { nextTick, onUnmounted, ref } from 'vue'
 import { withBase } from 'vitepress'
 
-const image = withBase('/diagrams/agent-runtime-concept.png')
+const image = withBase('/diagrams/agent-runtime-concept.png?v=2bc359e9')
 const open = ref(false)
 const closeButton = ref(null)
 let previousFocus = null
