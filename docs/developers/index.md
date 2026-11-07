@@ -17,8 +17,8 @@ create sessions and stream replies through the HTTP API.
 4. Store the key on your application server. Never put it in browser code or
    a public repository.
 
-The [API guide](./api-guide) gives copyable requests for the first session,
-streamed message, and transcript read.
+The [JavaScript SDK guide](./sdk) shows a Node.js integration. The [API guide](./api-guide)
+gives copyable HTTP requests for the first session, streamed message, and transcript read.
 
 The built-in assistant uses the platform LLM. Your account needs platform
 LLM access to use it; otherwise create an agent with your own LLM key.
@@ -42,6 +42,7 @@ or other keys. A session created with an API key must name an existing
 
 ## More documentation
 
+- [JavaScript SDK](./sdk) — install the client, stream two turns, and handle errors.
 - [API guide](./api-guide) — requests, SSE events, endpoint list, and common errors.
 - [Architecture](../architecture) — how the backend, runtime, session manager,
   and sandbox manager fit together.
