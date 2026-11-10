@@ -1,6 +1,6 @@
 # Frontend (managed-agents-frontend)
 
-React 19 + Vite 7 + Tailwind 4 SPA (Managed Agents Console), served by
+React 19 + Vite 7 + Tailwind 4 SPA (PolyAgent Console), served by
 nginx. Sign-in via Supabase: email/password, or GitHub OAuth with
 deep-link restore (the intended path survives the OAuth round-trip).
 

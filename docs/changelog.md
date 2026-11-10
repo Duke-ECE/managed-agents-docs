@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the managed-agents project are documented here.
+All notable changes to PolyAgent are documented here.
 
 ## 2026-08-08 — Chat-page LLM settings removed
 

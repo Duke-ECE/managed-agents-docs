@@ -1,6 +1,6 @@
 # Engineering Standards
 
-How we build services in the managed-agents platform.
+How we build services in the PolyAgent platform.
 
 **Canonical source: [Duke-ECE/standards](https://github.com/Duke-ECE/standards)**
 — rules (`AGENTS.md`), the Go service template (`templates/go-service/`),
