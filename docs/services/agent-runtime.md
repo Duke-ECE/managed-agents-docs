@@ -52,10 +52,11 @@ anywhere, Chat emits an `error` event ("LLM is not configured").
 
 ## Tools
 
-The `ToolExecutor` interface exists with four tool definitions
-(read/write/bash/edit), but only `NullExecutor` is wired — every call
-fails with "tool execution unavailable: sandbox not connected".
-SandboxExecutor (via sandbox-manager) is the next milestone.
+The runtime sends `read`, `write`, `bash`, and `edit` calls to the
+sandbox manager's `sandbox.v3.SessionSandboxService` when
+`SANDBOX_MANAGER_ADDR` is configured. Tool calls for the same session share
+a CubeSandbox workspace during the bounded development pilot. An unset
+address uses `NullExecutor` and reports that tool execution is unavailable.
 
 ## Environment
 
@@ -68,6 +69,7 @@ SandboxExecutor (via sandbox-manager) is the next milestone.
 | `LLM_BASE_URL` | `https://api.openai.com/v1` | |
 | `LLM_MODEL` | `gpt-4o-mini` | |
 | `SESSION_MANAGER_ADDR` | — | unset = no write-through/hydration |
+| `SANDBOX_MANAGER_ADDR` | — | sandbox manager gRPC address for session tools |
 | `SERVICE_TOKEN` | — | `x-service-token` for AppendTurn/GetTranscript |
 
 Quirks (documented in code): grpc-js needs `call.emit("error", err)`

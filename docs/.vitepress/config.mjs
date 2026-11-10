@@ -42,6 +42,7 @@ export default defineConfig({
           { text: 'session-manager', link: '/services/session-manager' },
           { text: 'sandbox-manager', link: '/services/sandbox-manager' },
           { text: 'Frontend', link: '/services/frontend' },
+          { text: 'Mobile', link: '/services/mobile' },
         ],
       },
       { text: 'Contracts (protos)', link: '/contracts' },

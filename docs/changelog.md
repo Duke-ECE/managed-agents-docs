@@ -2,6 +2,26 @@
 
 All notable changes to PolyAgent are documented here.
 
+## 2026-11-10 — PolyAgent console, mobile app, and Cube pilot
+
+- PolyAgent is the product name across the console, mobile app, CLI, SDK,
+  and documentation. Existing commands, package names, and URLs remain valid.
+- The signed-in web console opens to Overview for starting chats and reopening
+  recent sessions. The Sessions page supports search by title or ID. Web and mobile show expandable tool
+  activity before the final assistant reply and after reopening a transcript.
+- The [mobile app](./services/mobile) adds session ID search, a searchable agent picker, chat
+  history, and account settings. Native device acceptance is pending.
+- The CubeSandbox development pilot connects runtime tools to session
+  workspaces. It is limited to two active workspaces with a 30-minute TTL.
+  Durable workspace recovery and cleanup remain rollout gates.
+
+## 2026-11-06 — Developer clients
+
+- Added a [JavaScript SDK guide](./developers/sdk) for creating sessions,
+  streaming chat responses, and reading transcripts.
+- The [PolyAgent CLI](https://github.com/Duke-ECE/managed-agents-cli) supports
+  user sign-in, chat, and management of agents, sessions, and integration keys.
+
 ## 2026-08-08 — Chat-page LLM settings removed
 
 - **managed-agents-frontend@ca37c89** — LLM configuration now lives

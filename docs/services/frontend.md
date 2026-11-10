@@ -7,7 +7,7 @@ deep-link restore (the intended path survives the OAuth round-trip).
 ## Routes
 
 `/` is the public product homepage; `/login` is public. `/console` is the
-stable console entry: it requires login and then opens `/agents`. The guarded
+signed-in Overview page for starting a chat and reopening recent sessions. The guarded
 console routes are Chat (`/chat`, `/chat/:id`), Sessions (`/sessions`), Agents
 (`/agents`), API Keys (`/keys`), and admin-only LLM Access (`/admin`). A direct
 login defaults to `/console`; guarded deep links return to their intended
@@ -27,7 +27,7 @@ Whitelist management (`team_members`): list/add/remove members, pick
 roles. The nav item appears only when `GET /api/me` reports `is_admin`;
 the backend enforces admin regardless. Whitelisted members may use the
 platform-default LLM provider; everyone else must configure their own
-key (the chat settings panel hides "Default provider" for them).
+key in a private agent template.
 
 ## The chat page
 
@@ -42,16 +42,19 @@ ChatGPT-style: a left sidebar fed by the real `GET /api/sessions`
   transcript (`GET /api/sessions/:id/messages`) and continues streaming
   into the same view, so a refresh restores the conversation. 410
   (ended), 404 and 403 get dedicated banners.
-- **Provider toggle**: Default (platform OpenRouter provider, no key
-  needed) or Custom (any OpenAI-compatible endpoint with the user's own
-  key, stored in browser localStorage only). Default mode omits `llm`
-  from session creation so the backend injects the platform provider.
-- Tool events render inline; token usage shows on completion.
+- Choose an agent when starting a conversation. Provider and model settings
+  come from that agent's template.
+- Tool calls and results appear before the final answer in expandable rows
+  and remain visible when the transcript is reopened. Token usage appears
+  on completion.
 
-## The Sessions console page
+## Find a session
 
-Reads the real session list (previously mocks) via
-`src/lib/chat-api.ts`, with Open-in-chat and End actions per row.
+Overview shows recent activity. On the Sessions page, search by
+title or session ID. Search loads older pages on demand. Open a matching
+session to read its transcript.
+
+The Expo app has its own [mobile guide](./mobile).
 
 ## Build-time environment
 

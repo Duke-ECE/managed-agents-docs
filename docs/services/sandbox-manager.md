@@ -3,7 +3,7 @@
 Go 1.25 gRPC server (:50051) owning all sandbox pods in the cluster.
 Itself stateless — sandbox state lives on pod labels and annotations.
 
-## Two services
+## Kubernetes sandbox services
 
 - **`sandbox.v1.SandboxManagerService`** — `CreateSandbox`/`DeleteSandbox`,
   ops/debug lifecycle (ids `sb-<hex>`, TTL reaper).
@@ -11,6 +11,15 @@ Itself stateless — sandbox state lives on pod labels and annotations.
   single tool call synchronously in an anonymous, **single-use** sandbox
   that is destroyed immediately after. This is the API the agent-runtime
   will consume.
+
+## Session workspaces
+
+The bounded CubeSandbox development pilot serves
+[`sandbox.v3.SessionSandboxService`](../contracts). Calls for the same session
+share a workspace. The pilot allows two active workspaces and uses a
+30-minute workspace TTL. After an accepted session end or purge, the
+backend requests workspace closure. Workspace cleanup remains best effort,
+and tracking lost workspaces across manager restarts is a rollout gate.
 
 ## The pool
 

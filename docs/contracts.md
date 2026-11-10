@@ -3,7 +3,8 @@
 All gRPC contracts live in
 [Duke-ECE/protos](https://github.com/Duke-ECE/protos) (buf v2). Generated
 Go code is committed (`gen/go/` — never hand-edit); consumers pin a
-semver git tag. Current tag: **v0.4.0**.
+semver git tag. The session sandbox contract described below is tagged
+[`v0.9.1`](https://github.com/Duke-ECE/protos/releases/tag/v0.9.1).
 
 ## Packages
 
@@ -40,6 +41,14 @@ same-named SSE event — these names are a three-repo contract
 
 `Execute` — one synchronous tool call in an anonymous single-use
 sandbox. Response: `exit_code`, `stdout`, `stderr`, `truncated`.
+
+### `sandbox.v3` — SessionSandboxService (sandbox-manager)
+
+`EnsureSessionSandbox`, `GetSessionSandboxStatus`, and
+`CloseSessionSandbox` manage a workspace scoped to a session. `ExecuteTool`
+runs a typed tool call in that workspace. `PutResource` and `GetResource`
+stream file uploads and downloads. The additive multi-edit request is
+available in `v0.9.1`.
 
 ## Versioning rules
 

@@ -18,9 +18,10 @@ session-manager (Go gRPC, :50053)
 agent-runtime (TypeScript gRPC, :50052)
   → streams LLM responses via any OpenAI-compatible endpoint
   → write-through of each completed turn via session.v1.AppendTurn
-  → (planned) tool execution via sandbox.v2.SandboxExecutorService
+  → gRPC sandbox.v3.SessionSandboxService (Cube development pilot)
 sandbox-manager (Go gRPC, :50051)
-  → Kubernetes API: pooled, single-use sandbox pods in namespace pi-sandbox
+  → CubeSandbox: session workspaces for the v3 pilot
+  → Kubernetes API: pooled, single-use sandbox pods for v1/v2
 ```
 
 External dependencies: Supabase (auth + Postgres), an OpenAI-compatible
@@ -38,9 +39,10 @@ sketch, **not a diagram of the current deployment**.
 
 The live system differs in several important ways: the runtime keeps
 active sessions in memory and rehydrates them from Supabase Postgres;
-session data is not stored as JSONL; internal calls use gRPC; sandbox
-execution is not yet connected to the runtime; and persistent workspaces
-are not deployed. The endpoint and environment-variable examples in the
+session records and transcripts live in Postgres, and internal calls use
+gRPC. The runtime executes tools through session workspaces in a bounded
+CubeSandbox development pilot. Durable workspace recovery and cleanup
+remain rollout gates. The endpoint and environment-variable examples in the
 image are illustrative rather than instructions for the live API. Use the
 [service guides](./services/) and [contracts](./contracts) for the
 implemented interfaces.
@@ -49,7 +51,7 @@ implemented interfaces.
 
 ### Sign in
 
-Browser → Supabase Auth (email/password; GitHub OAuth planned) →
+Browser → Supabase Auth (email/password or GitHub OAuth) →
 access token (JWT). Every API call carries `Authorization: Bearer <jwt>`.
 The backend verifies it against the Supabase JWKS endpoint; the JWT
 `sub` becomes `user_id` everywhere downstream.
