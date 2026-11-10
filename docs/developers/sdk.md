@@ -1,6 +1,6 @@
 # JavaScript SDK
 
-Use the Managed Agents SDK from a Node.js server to chat with an existing agent. The SDK creates sessions, streams replies, and reads transcripts. Agent setup and API key creation happen in the console or CLI before your application starts.
+Use the PolyAgent SDK from a Node.js server to chat with an existing agent. The SDK creates sessions, streams replies, and reads transcripts. Agent setup and API key creation happen in the console or CLI before your application starts.
 
 ## Before you start
 

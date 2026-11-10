@@ -1,6 +1,6 @@
 # Developer Guide
 
-Managed Agents hosts reusable agents that your application can call from its
+PolyAgent hosts reusable agents that your application can call from its
 own server. You configure an agent in the console, create an API key, then
 create sessions and stream replies through the HTTP API.
 
@@ -26,7 +26,7 @@ LLM access to use it; otherwise create an agent with your own LLM key.
 ## How the integration works
 
 ```text
-Your app → your server → Managed Agents API → hosted agent
+Your app → your server → PolyAgent API → hosted agent
                                   ↓
                          session and transcript
 ```

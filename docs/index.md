@@ -4,7 +4,7 @@ title: Documentation
 hero:
   name: Documentation
   text: Find the right guide.
-  tagline: Integration steps, API examples, and technical references for Managed Agents.
+  tagline: Integration steps, API examples, and technical references for PolyAgent.
   actions:
     - theme: brand
       text: Start integrating
@@ -54,4 +54,4 @@ for cluster procedures, [Engineering Standards](./standards) for contribution
 rules, and the [Changelog](./changelog) for shipped changes.
 
 Looking for the product overview? Go to the
-[Managed Agents homepage](https://managed-agents.colab.duke.edu/).
+[PolyAgent homepage](https://managed-agents.colab.duke.edu/).

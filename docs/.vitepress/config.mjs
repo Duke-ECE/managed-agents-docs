@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Managed Agents',
-  description: 'Documentation for the managed-agents platform (Duke ECE)',
+  title: 'PolyAgent',
+  description: 'Documentation for the PolyAgent platform (Duke ECE)',
   base: '/managed-agents-docs/',
   head: [['link', { rel: 'icon', href: '/managed-agents-docs/favicon.svg' }]],
   themeConfig: {
